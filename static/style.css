@@ -1,0 +1,52 @@
+#image-selector{
+
+  margin-right: 100px;
+  margin-left: 200px;
+  margin-bottom: 30px;
+  
+}
+
+#predict-button{
+  margin-bottom: 40px;
+  margin-left: 200px;
+	
+}
+
+#pred{
+	margin-right: 100px;
+	margin-left: 200px;
+
+
+}
+
+#dg{
+	margin-right: 100px;
+	margin-left: 200px;
+}
+
+#ct{
+	margin-right: 100px;
+	margin-left: 200px;
+}
+
+#selected-image{
+	
+	
+	position: absolute;
+	margin-top: 50px;
+	margin-right: 100px;
+	margin-left:200px; 
+	
+}
+
+body {
+
+	background-color: black;
+		
+}
+
+.jumbotron{
+	background-color: default;
+	color: red;
+	margin-top: 20px;
+}

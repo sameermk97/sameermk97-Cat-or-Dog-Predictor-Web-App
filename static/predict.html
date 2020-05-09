@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="style.css">
+    <title>Cat or Dog</title>
+    <style>
+        * {
+            font-size:25px;
+        }
+    </style>
+</head>
+<body> 
+
+<div class="container">
+    <div class="jumbotron">
+       <input id="image-selector" type="file">  
+       <div>  
+          <button type="button" class="btn btn-primary btn" id="predict-button">Predict Cat or Dog</button>
+        </div>
+        <p style="font-weight:bold" id="pred">Predictions:-</p>    
+        <p style="font-weight:bold" id="dg">Dog: <span id="dog-prediction"></span></p>
+        <p style="font-weight:bold" id="ct">Cat: <span id="cat-prediction"></span></p>
+        <img id="selected-image" width="500" height="250" src=""/>
+    </div>
+</div>       
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+    <script>
+        let base64Image;
+        $("#image-selector").change(function() {
+            let reader = new FileReader();
+            reader.onload = function(e) {
+                let dataURL = reader.result;
+                $('#selected-image').attr("src", dataURL);
+                base64Image = dataURL.replace("data:image/png;base64,","");
+                console.log(base64Image);
+            }
+            reader.readAsDataURL($("#image-selector")[0].files[0]);
+            $("#dog-prediction").text("");
+            $("#cat-prediction").text("");
+        });
+        
+        $("#predict-button").click(function(){
+            let message = {
+                image: base64Image
+            }
+            console.log(message);
+
+
+
+            $.post("http://192.168.199.1:5000/predict", JSON.stringify(message), function(response){
+            if ((response.prediction.dog.toFixed(6)) > 50){
+                
+                $("#dog-prediction").text("I Am a DOG!! Bhow-wwwoooww");
+                console.log(response);
+                
+            }
+
+            else{
+            
+                $("#cat-prediction").text("I Am a CAT!! Meaaoooooowww");
+                
+                console.log(response);
+             }   
+            });
+
+
+
+
+
+         /*   $.post("http://192.168.199.1:5000/predict", JSON.stringify(message), function(response){
+                $("#dog-prediction").text(response.prediction.dog.toFixed(6));
+                $("#cat-prediction").text(response.prediction.cat.toFixed(6));
+
+                if ($("#dog-prediction").text(response.prediction.dog.toFixed(6)) > 50) {
+                    console.log("its a dog");
+                }
+                else{
+                    console.log("its a cat");
+                }
+                //$("#dog-prediction").text(response.prediction.CAT.toFixed(6));
+                //$("#cat-prediction").text(response.prediction.DOG.toFixed(6));
+                console.log(response);
+            });*/
+        });       
+    </script>
+</body>
+</html>
