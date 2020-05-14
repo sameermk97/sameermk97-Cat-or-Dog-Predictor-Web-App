@@ -50,7 +50,7 @@
 
 
 
-            $.post("http://192.168.199.1:5000/predict", JSON.stringify(message), function(response){
+            $.post("http://localhost:5000/predict", JSON.stringify(message), function(response){
             if ((response.prediction.dog.toFixed(6)) > 50){
                 
                 $("#dog-prediction").text("I Am a DOG!! Bhow-wwwoooww");
